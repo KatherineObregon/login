@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 @Component
 public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
@@ -23,6 +24,7 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
         CustomOAuth2User oAuth2User = (CustomOAuth2User) authentication.getPrincipal();
+        Map<String, Object> atributis = oAuth2User.getAttributes();
         String email = oAuth2User.getEmail();
         System.out.println("Email del usuario : "+ email);
         String nombre = oAuth2User.getName();
@@ -34,7 +36,7 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         }else{
             //update
 
-            updateNewUserAfterOAuthLoginSuccess(usuario, nombre,AuthenticationProvider.GOOGLE);
+            updateNewUserAfterOAuthLoginSuccess(usuario, nombre,AuthenticationProvider.LOCAL);
         }
 
 

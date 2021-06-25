@@ -25,7 +25,11 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
+    private CustomOauth2UserService oauth2UserService;
 
+    @Autowired
+    private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
 
 
     @Bean
@@ -66,15 +70,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .successHandler(oAuth2LoginSuccessHandler)
                 .and()
                 .logout().permitAll()
-
         ;
+
+        //TODO: COPIAR DEL 66-70
+
     }
 
-    @Autowired
-    private CustomOauth2UserService oauth2UserService;
 
-    @Autowired
-    private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
 
 
 }
